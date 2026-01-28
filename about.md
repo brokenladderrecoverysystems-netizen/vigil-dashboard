@@ -17,7 +17,14 @@ The "Broken Ladder" philosophy is built on the belief that accountability should
 ### Background & Expertise
 * **Safety & Leadership:** 25+ years in manufacturing and construction safety.
 * **Academic Excellence:** 3.8 GPA in Business Management & Nonprofit Studies.
-* **Community Focused:** Dedicated to reducing the workload for case managers at organizations like Alvis Inc. through smart automation.
+---
+### 📬 Connect with Broken Ladder
+If you are interested in our **Phase 1 Pilot Program** or would like to discuss strategic partnerships, please reach out directly:
+
+* **Founder:** Toby J. Protsman
+* **Email:** [brokenladderrecoverysystems@gmail.com](mailto:brokenladderrecoverysystems@gmail.com)
+* **Phone:** (614) 618-2004
+* **Location:** Columbus, Ohio
 
 ---
 [Return to Dashboard](./index.html)
