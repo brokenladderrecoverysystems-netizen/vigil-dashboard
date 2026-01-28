@@ -40,11 +40,8 @@ title: Vigil Recovery Systems
 
 ---
 ### 🛠 Technical Resources
-Detailed documentation for partners and developers:
-
-* [**Phase 1:** Model Manager Specifications](./MODEL_MANAGER_PHASE1.html)
-* [**Phase 3:** Court-Ready Reporting Framework](./COURT_REPORTING_PHASE3.html)
-* [**Enrollment:** Join the Pilot Program](./pilot.html)
+* [View Phase 1: Model Manager](./MODEL_MANAGER_PHASE1.html)
+* [View Phase 3: Court Reporting](./COURT_REPORTING_PHASE3.html)
 
 ---
 **Founder:** Toby J. Protsman | *Broken Ladder Recovery Systems Inc.*
