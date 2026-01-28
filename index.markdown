@@ -1,7 +1,24 @@
----
-layout: home
----
-
+<style>
+  body { background-color: #f4f7f6; color: #2c3e50; }
+  h1, h2 { color: #1a5e5e; } /* Emerald Green for Recovery */
+  .button {
+    background-color: #2e7d32;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 25px;
+    display: inline-block;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    background: white;
+  }
+  th { background-color: #1a5e5e; color: white; }
+</style>
 <div style="font-family: sans-serif; padding: 20px; color: #333;">
   <header style="text-align: center; padding: 40px 0; background: #f4f4f4; border-radius: 10px;">
     <h1 style="color: #2c3e50;">Vigil Recovery Systems</h1>
@@ -16,21 +33,11 @@ layout: home
       <li><strong>Compliance Status:</strong> Automated Green/Yellow/Red indicators.</li>
       <li><strong>Secure Records:</strong> Tamper-proof logging for treatment providers.</li>
     </ul>
-  </section>
+  Our development aligns technical innovation with the critical stages of participant recovery.
+### 🛠 Technical Frameworks
+[View Phase 1: Model Manager](/MODEL_MANAGER_PHASE1/) | [View Phase 3: Court Reporting](/COURT_REPORTING_PHASE3/)
 
-  <section style="margin-top: 30px; border-top: 1px solid #eee; pt: 20px;">
-    <h2>The Amulet Smart Ring</h2>
-    <p>Our flagship wearable device featuring transdermal alcohol sensing and vitals tracking.</p>
-  </section>
-</div>
- ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
----
-## 🚀 Project Roadmap: The Path to Launch
-Our development aligns technical innovation with the critical stages of participant recovery.
+[Join the Pilot Program](/pilot/){: .button}
 
 | Phase | Technical Milestone | Clinical Focus | Timeline |
 | :--- | :--- | :--- | :--- |
