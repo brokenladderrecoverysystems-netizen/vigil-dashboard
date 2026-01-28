@@ -39,10 +39,12 @@ title: Vigil Recovery Systems
 | **Phase 4** | **Predictive Relapse** | Dignity & Prevention | 6 Months |
 
 ---
-
 ### 🛠 Technical Resources
-* [View Phase 1: Model Manager](/MODEL_MANAGER_PHASE1/)
-* [View Phase 3: Court Reporting](/COURT_REPORTING_PHASE3/)
+Detailed documentation for partners and developers:
+
+* [**Phase 1:** Model Manager Specifications](./MODEL_MANAGER_PHASE1.html)
+* [**Phase 3:** Court-Ready Reporting Framework](./COURT_REPORTING_PHASE3.html)
+* [**Enrollment:** Join the Pilot Program](./pilot.html)
 
 ---
 **Founder:** Toby J. Protsman | *Broken Ladder Recovery Systems Inc.*
