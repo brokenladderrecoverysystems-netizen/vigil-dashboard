@@ -23,9 +23,9 @@ email: "brokenladderrecoverysystems@gmail.com"
 description: >- # this means to ignore newlines until "baseurl:"
  "Vigil Recovery Platform & Amulet Smart Ring"
 baseurl: "https://brokenladderrecoverysystems-netizen.github.io/vigil-dashboard/ " # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+url: ""https://brokenladderrecoverysystems-netizen.github.io/vigil-dashboard/" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username:
+github_username: "brokenladderrecoverysystems-netizen"
 
 # Build settings
 theme: minima
