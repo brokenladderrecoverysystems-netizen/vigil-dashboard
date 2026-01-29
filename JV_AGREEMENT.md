@@ -1,9 +1,11 @@
+
 ---
 
 layout: page
 title: Joint Venture Framework
 
 ---
+
 
 # Joint Venture Agreement (Master Template)
 **Strategic Collaboration: Broken Ladder Recovery Systems Inc. & [Partner Name]**
@@ -28,7 +30,9 @@ New IP developed during this collaboration will be co-owned, ensuring both parti
 ### 6. Managerial Role
 Broken Ladder will lead technical project areas and participate in strategic decision-making to ensure data integrity and system security.
 
+
 ---
+
 
 ### 📝 Execution
 **For Broken Ladder Recovery Systems Inc.** Name: Toby J. Protsman | Title: Founder & CEO  
