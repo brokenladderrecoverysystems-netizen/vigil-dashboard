@@ -1,19 +1,39 @@
-# Model Manager: Phase 1 (Core Infrastructure)
-**Component:** Vigil On-Device Security Layer
-**Milestone:** Initial Edge-AI Implementation
+---
 
-## 1. The Verification Engine (Signing)
-To protect participants from unauthorized firmware changes, the Model Manager utilizes a **Manifest-First** protocol. 
-* **Model Authenticity:** Every recovery-tracking model is signed with a private key at the Broken Ladder Backend.
-* **On-Ring Check:** The `ModelManager` checks the signature against the `0001-tinyml-update` schema before installation.
+layout: page
+title: Phase 1 Technical Specs
+nav_exclude: true
 
-## 2. Active APIs (Current Sprint)
-We are currently implementing the following core endpoints for the Amulet ring:
+---
 
-* `verify()`: Cross-references the downloaded model hash with the signed manifest.
-* `install()`: Unpacks the verified TinyML model into the ring's secure execution environment.
-* `activate()`: Seamlessly switches from the old behavioral baseline to the updated recovery model without data gaps.
 
-## 3. Biometric Integrity
-Phase 1 ensures that **GSR (Stress)** and **PPG (Heart Rate)** sensors are calibrated via the `Manifest Schema` to prevent false positives in relapse detection.
+# 🛠 Phase 1: Model Manager Architecture
+**Project: Vigil Recovery Systems | Device: Amulet Biometric Ring**
+
+### 1. The "Logic Engine" (Standardization)
+Phase 1 focuses on the **Referee Logic**—ensuring the system standardizes compliance without removing human judgment.
+
+* **Zero-Leakage PHI:** Data is siloed. Case managers see clinical notes; Leadership sees only aggregate capacity and compliance health.
+* **Edge-AI Processing:** Biometric signals (Heart Rate, GSR, Sweat Alcohol) are processed on-device to ensure privacy and reduce latency.
+
+### 2. Threshold & Alert Logic (The Referee)
+The Model Manager uses a "Traffic Light" system to reduce staff workload:
+
+| Signal | Logic Trigger | Action Taken |
+| :--- | :--- | :--- |
+| **🟢 Green** | 100% Biometric presence + No alerts | Auto-generate daily compliance log. |
+| **🟡 Yellow** | Abnormal stress (GSR) or missing check-in | Suggest schedule adjustment to staff. |
+| **🔴 Red** | Alcohol detected or geofence violation | Immediate incident timeline generated. |
+
+### 3. "Human-in-the-Loop" Policy
+* AI **suggests** actions; Staff **approves** them.
+* This protects staff morale and ensures legal accountability stays with qualified professionals.
+
+### 4. Security & Governance
+* **Audit Logs:** Every AI-generated flag is logged for court-ready reporting.
+* **Read-Only Portals:** Established for Probation and Insurance verification without giving access to private therapy data.
+
+---
+
+[Return to Dashboard](./index.html)
 
