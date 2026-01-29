@@ -1,3 +1,12 @@
+---
+
+layout: page
+title: Technical Manifest
+nav_exclude: true
+
+---
+
+
 # Vigil Amulet: Technical Manifest & Security Protocol
 **Project:** Broken Ladder Recovery Systems 
 **Version:** 1.0.0-Alpha

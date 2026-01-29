@@ -1,3 +1,12 @@
+
+---
+
+layout: page
+title: Phase 3: Court-Ready Compliance
+nav_exclude: true
+
+---
+
 # Phase 3: Court-Ready Compliance & Reporting
 **Component:** Vigil Legal & Administrative Dashboard
 **Milestone:** Defensible Compliance Documentation
