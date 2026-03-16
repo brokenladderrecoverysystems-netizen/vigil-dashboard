@@ -2,52 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Vigil - Claims Management</title>
+    <title>Vigil - Dignity First Portal</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #0b0e14; color: #fff; margin: 0; padding: 20px; }
-        .dashboard-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 350px 1fr; gap: 20px; }
-        .sidebar { background: #161b22; padding: 20px; border-radius: 16px; border: 1px solid #30363d; text-align: center; }
-        .card { background: #161b22; padding: 15px; border-radius: 12px; border: 1px solid #30363d; height: 350px; overflow-y: auto; }
-        .input-field { width: 90%; padding: 10px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: white; }
-        .btn { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; color: white; }
-        .btn-green { background: #238636; }
-        .btn-blue { background: #0056b3; }
-        .item { font-size: 11px; padding: 8px; border-bottom: 1px solid #21262d; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0b0e14; color: #fff; margin: 0; padding: 0; }
+        nav { background: #161b22; padding: 15px 30px; border-bottom: 1px solid #30363d; display: flex; gap: 20px; }
+        nav a { color: #8b949e; text-decoration: none; cursor: pointer; font-size: 0.9em; transition: 0.2s; }
+        nav a.active { color: #58a6ff; border-bottom: 2px solid #58a6ff; padding-bottom: 5px; }
+        
+        .container { padding: 40px; max-width: 900px; margin: 0 auto; }
+        .page { display: none; }
+        .page.active { display: block; }
+        
+        .handbook-card { background: #161b22; padding: 40px; border-radius: 16px; border: 1px solid #30363d; line-height: 1.8; }
+        .right-item { border-left: 3px solid #3fb950; padding-left: 20px; margin: 20px 0; background: rgba(63, 185, 80, 0.05); padding-top: 10px; padding-bottom: 10px; }
+        .amulet-confirm { border: 2px solid #58a6ff; padding: 20px; border-radius: 12px; text-align: center; margin-top: 30px; }
+        .btn-tap { background: #58a6ff; color: #fff; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-<div class="dashboard-container">
-    <div class="sidebar">
-        <h3 style="color: #58a6ff;">VIGIL CLAIMS</h3>
-        <label style="font-size: 11px; color: #8b949e;">CLIENT NAME</label>
-        <input type="text" id="client_name" class="input-field" placeholder="Enter Full Name">
-        <label style="font-size: 11px; color: #8b949e;">TRIP DISTANCE (MILES)</label>
-        <input type="number" id="miles" class="input-field" value="5">
-        <button class="btn btn-green" onclick="logTrip()">Authorize & Log Trip</button>
-        <hr style="border: 1px solid #30363d; margin: 20px 0;">
-        <button class="btn btn-blue" onclick="window.open('http://localhost:8000/api/export-csv/')">📥 Generate Medicaid CSV</button>
-    </div>
-    <div class="main">
-        <div class="card">
-            <h4>💰 Claims History</h4>
-            <div id="billing-list"></div>
+
+<nav>
+    <a onclick="show('pro')" id="l-pro">PROFESSIONAL DASHBOARD</a>
+    <a onclick="show('client')" id="l-client" class="active">CLIENT HANDBOOK</a>
+</nav>
+
+<div class="container">
+    <div id="client" class="page active">
+        <div class="handbook-card">
+            <h1 id="hb-title" style="color:#58a6ff; margin-top:0;"></h1>
+            <p id="hb-phil" style="font-style: italic; color:#8b949e;"></p>
+            
+            <h3 style="margin-top:40px;">Your Rights in the Sighted Program</h3>
+            <div id="hb-rights"></div>
+
+            <div class="amulet-confirm">
+                <h4>📳 Simulate Amulet Response</h4>
+                <p style="font-size:0.8em; color:#8b949e;">When you receive a message from your P.O., tap your ring to acknowledge.</p>
+                <button class="btn-tap" onclick="tapRing()">[ DOUBLE TAP RING ]</button>
+            </div>
         </div>
     </div>
+
+    <div id="pro" class="page">
+        <h2>Professional Dashboard</h2>
+        <p>Switch back to this view for P.O. and Counselor tools.</p>
+    </div>
 </div>
+
 <script>
-    async function logTrip() {
-        const name = document.getElementById('client_name').value;
-        const miles = document.getElementById('miles').value;
-        if(!name) { alert("Please enter a client name."); return; }
-        await fetch(`http://localhost:8000/api/billing/?client_name=${name}&miles=${miles}`, {method:'POST'});
-        loadHistory();
+    function show(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.getElementById('l-' + id).classList.add('active');
+        if(id === 'client') loadHandbook();
     }
-    async function loadHistory() {
-        const res = await fetch('http://localhost:8000/api/history/');
+
+    async function loadHandbook() {
+        const res = await fetch('http://localhost:8000/api/handbook/');
         const data = await res.json();
-        document.getElementById('billing-list').innerHTML = data.billing.map(b => `<div class="item"><strong>${b.client}</strong> | ID: ${b.receipt} | ${b.timestamp} | ${b.miles} mi</div>`).join('');
+        document.getElementById('hb-title').innerText = data.title;
+        document.getElementById('hb-phil').innerText = data.philosophy;
+        document.getElementById('hb-rights').innerHTML = data.rights.map(r => `
+            <div class="right-item">
+                <strong>${r.split(':')[0]}</strong><br>
+                <span style="color:#8b949e">${r.split(':')[1]}</span>
+            </div>
+        `).join('');
     }
-    loadHistory();
+
+    async function tapRing() {
+        await fetch('http://localhost:8000/api/acknowledge/?message_id=MSG-101', {method:'POST'});
+        alert("Amulet Feedback Sent: P.O. has been notified that you received the message.");
+    }
+
+    loadHandbook();
 </script>
 </body>
 </html>
