@@ -2,115 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Vigil UI - Investor Demo</title>
+    <title>Vigil - Amulet Live Hub</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #eef2f3; text-align: center; padding: 50px; }
-        .dashboard-card { background: white; max-width: 600px; margin: 0 auto; padding: 40px; border-radius: 12px; box-shadow: 0px 10px 20px rgba(0,0,0,0.1); }
-        .traffic-light { margin: 20px 0; padding: 20px; border-radius: 8px; background-color: #f8f9fa; border: 2px solid #dee2e6; font-size: 20px; font-weight: bold; }
-        .simulator-panel { background: #f1f3f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; text-align: left; border: 1px dashed #adb5bd; }
-        .slider-container { margin-bottom: 15px; }
-        input[type=range] { width: 100%; }
-        input[type=text], input[type=number] { padding: 10px; border-radius: 4px; border: 1px solid #ccc; width: 45%; margin-right: 5%; }
-        .btn { background-color: #0056b3; color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 6px; cursor: pointer; width: 100%; margin-bottom: 10px; }
-        .btn:hover { background-color: #004494; }
-        .btn-green { background-color: #28a745; }
-        .btn-green:hover { background-color: #218838; }
-        .receipt-box { margin-top: 15px; font-family: monospace; padding: 10px; border-radius: 4px; display: none; text-align: left;}
+        body { font-family: 'Segoe UI', sans-serif; background: #0b0e14; color: #fff; margin: 0; padding: 20px; }
+        .dashboard-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 380px 1fr; gap: 20px; height: 90vh; }
+        .sidebar { background: #161b22; padding: 20px; border-radius: 16px; border: 1px solid #30363d; text-align: center; display: flex; flex-direction: column; }
+        .hw-box { background: #0d1117; padding: 10px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; font-size: 11px; border: 1px solid #30363d; }
+        #vortex-svg { transition: 0.5s ease; animation: rotate 20s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .glitch { animation: shake 0.2s infinite; stroke: #ff4d4d !important; filter: drop-shadow(0 0 10px #ff4d4d); }
+        @keyframes shake { 0%, 100% { transform: translate(0); } 50% { transform: translate(-2px, 2px); } }
+        #map { height: 100%; border-radius: 16px; border: 1px solid #30363d; }
+        .status-header { font-size: 1.4em; font-weight: bold; margin: 15px 0; }
+        .control-group { text-align: left; background: #0d1117; padding: 15px; border-radius: 8px; margin-top: auto; }
+        input[type="range"] { width: 100%; accent-color: #58a6ff; margin-top: 10px; }
+        .btn { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="dashboard-card">
-        <h1>Vigil Role-Based Dashboard</h1>
-        <h3>Broken Ladder Recovery Systems Inc.</h3>
-        
-        <div class="traffic-light" id="status-display">
-            Awaiting Amulet Sensor Data...
+<div class="dashboard-container">
+    <div class="sidebar">
+        <h3 style="color: #58a6ff;">VIGIL CORE</h3>
+        <div class="hw-box"><span>RING: <span style="color:#3fb950">PAIRED</span></span><span>BATTERY: 88%</span></div>
+        <svg id="vortex-svg" viewBox="0 0 100 100" width="220" height="220">
+            <polygon id="vortex-shape" points="50,5 90,25 100,70 70,95 30,95 0,70 10,25" fill="rgba(88, 255, 255, 0.1)" stroke="#58a6ff" stroke-width="2" />
+        </svg>
+        <div id="status-text" class="status-header">SYSTEM READY</div>
+        <div class="control-group">
+            <label style="font-size: 11px; color: #8b949e;">VITAL FLOW (BRPM)</label>
+            <input type="range" id="brpm" min="0" max="30" value="14">
+            <label style="font-size: 11px; color: #8b949e; margin-top: 10px; display: block;">STRESS FREQUENCY (GSR)</label>
+            <input type="range" id="stress" min="0" max="100" value="40">
         </div>
-        
-        <div class="simulator-panel">
-            <h4 style="margin-top: 0; color: #495057;">🛠️ Amulet Hardware Simulator</h4>
-            
-            <div class="slider-container">
-                <label>Breathing Rate (BRPM): <strong id="brpm-val">14</strong></label>
-                <input type="range" id="brpm" min="0" max="30" value="14" oninput="document.getElementById('brpm-val').innerText=this.value">
-            </div>
-            
-            <div class="slider-container">
-                <label>Stress Level (GSR): <strong id="stress-val">40</strong></label>
-                <input type="range" id="stress" min="0" max="100" value="40" oninput="document.getElementById('stress-val').innerText=this.value">
-            </div>
-            <button class="btn" onclick="scanVitals()">Transmit Simulated Vitals</button>
-        </div>
-
-        <div class="simulator-panel">
-            <h4 style="margin-top: 0; color: #495057;">🚐 Medicaid Transportation Billing</h4>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                <input type="text" id="trip-id" placeholder="Trip ID (e.g., TRP-992)">
-                <input type="number" id="trip-miles" placeholder="Miles (e.g., 12.5)">
-            </div>
-            <button class="btn btn-green" onclick="submitBilling()">Log Medicaid Trip</button>
-            
-            <div id="billing-receipt" class="receipt-box"></div>
-        </div>
+        <button class="btn" style="background: #da3633; color: white;" onclick="setHotZone()">Simulate Hot Zone Entry</button>
     </div>
-
-    <script>
-        async function scanVitals() {
-            const display = document.getElementById('status-display');
-            const brpm = document.getElementById('brpm').value;
-            const stress = document.getElementById('stress').value;
-            
-            display.innerHTML = "Transmitting to Python Engine...";
-            display.style.backgroundColor = "#e2e3e5"; 
-            
-            try {
-                const response = await fetch(`http://localhost:8000/api/status/?brpm=${brpm}&stress=${stress}`);
-                const data = await response.json();
-                
-                if (data.color === "GREEN") {
-                    display.innerHTML = "🟢 " + data.alert;
-                    display.style.backgroundColor = "#d4edda";
-                } else if (data.color === "YELLOW") {
-                    display.innerHTML = "🟡 " + data.alert;
-                    display.style.backgroundColor = "#fff3cd";
-                } else {
-                    display.innerHTML = "🔴 " + data.alert;
-                    display.style.backgroundColor = "#f8d7da";
-                }
-            } catch (error) {
-                display.innerHTML = "⚠️ ERROR: Is the Python Server running?";
-                display.style.backgroundColor = "#f8d7da";
-            }
-        }
-
-        async function submitBilling() {
-            const tripId = document.getElementById('trip-id').value || 'TRP-000';
-            const miles = document.getElementById('trip-miles').value || 0;
-            const receiptBox = document.getElementById('billing-receipt');
-            
-            receiptBox.style.display = "block";
-            receiptBox.innerHTML = "Processing securely via FHIR API...";
-            receiptBox.style.backgroundColor = "#fff3cd";
-            
-            try {
-                const response = await fetch(`http://localhost:8000/api/billing/?trip_id=${tripId}&miles=${miles}`, {
-                    method: 'POST'
-                });
-                const data = await response.json();
-                
-                if (data.receipt) {
-                    receiptBox.innerHTML = `✅ <strong>SUCCESS</strong><br>Receipt: ${data.receipt}<br>Status: ${data.status}<br>Time: ${data.timestamp}`;
-                    receiptBox.style.backgroundColor = "#d4edda";
-                    receiptBox.style.color = "#155724";
-                } else if (data.error) {
-                    receiptBox.innerHTML = `🔒 <strong>SYSTEM LOCKED</strong><br>${data.error}`;
-                    receiptBox.style.backgroundColor = "#f8d7da";
-                }
-            } catch (error) {
-                receiptBox.innerHTML = "⚠️ ERROR: Backend Offline.";
-                receiptBox.style.backgroundColor = "#f8d7da";
-            }
-        }
-    </script>
+    <div id="map"></div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map', {zoomControl: false}).setView([39.9612, -82.9988], 15);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+    var marker = L.marker([39.9612, -82.9988]).addTo(map);
+    var curLat = 39.9600;
+    function setHotZone() { curLat = 39.9612; }
+    setInterval(async () => {
+        const brpm = document.getElementById('brpm').value;
+        const stress = document.getElementById('stress').value;
+        const shape = document.getElementById('vortex-shape');
+        const status = document.getElementById('status-text');
+        const scale = 1 + (stress / 200); // VORTEX EXPANSION LOGIC
+        shape.style.transform = `scale(${scale})`;
+        shape.style.transformOrigin = "center";
+        try {
+            const res = await fetch(`http://localhost:8000/api/status/?brpm=${brpm}&stress=${stress}&lat=${curLat}`);
+            const data = await res.json();
+            status.innerText = data.alert;
+            if (data.color === "RED") { shape.classList.add('glitch'); status.style.color = "#ff4d4d"; shape.setAttribute('stroke', "#ff4d4d"); }
+            else if (data.color === "YELLOW") { shape.classList.remove('glitch'); status.style.color = "#d29922"; shape.setAttribute('stroke', "#d29922"); }
+            else { shape.classList.remove('glitch'); status.style.color = "#3fb950"; shape.setAttribute('stroke', "#58a6ff"); }
+        } catch (e) { status.innerText = "OFFLINE"; }
+    }, 1000);
+</script>
 </body>
 </html>
