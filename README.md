@@ -1,6 +1,8 @@
 # Broken Ladder Recovery System's Inc.
 ## Vigil Core Engine & The 7-Sided Vortex
 
+![Vigil Dashboard Mockup](vortex-dashboard.png)
+
 **Founder:** Toby J. Protsman  
 **Mission:** To provide a non-stigmatizing, data-driven safety net for individuals in recovery, reducing administrative burden for counselors while providing life-saving biometric oversight.
 
@@ -19,10 +21,10 @@ The heart of the Vigil UI is the **Heptagonal Vortex**. Each side represents a c
 ---
 
 ### 🚀 Technical Features
-* **FastAPI Backend:** A high-performance Python engine handling real-time biometric logic.
+* **FastAPI Backend:** High-performance Python engine for real-time biometric logic.
 * **ERIS Mapping:** Live Leaflet.js integration tracking "Hot Zone" entries in Columbus, Ohio.
-* **Automated Dispatch:** Integrated SMTP notification system for immediate clinical intervention.
-* **Role-Based UI:** Professional dark-mode dashboard designed for clinical environments.
+* **Automated Dispatch:** Integrated SMTP notification system for clinical intervention.
+* **Responsive UI:** Professional dark-mode dashboard designed for clinical environments.
 
 ---
 
